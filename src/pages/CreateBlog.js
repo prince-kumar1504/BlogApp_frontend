@@ -44,7 +44,7 @@ const CreateBlog = () => {
       <form onSubmit={handleSubmit}>
         <Box
           width={"50%"}
-          border={3}
+          
           borderRadius={10}
           padding={3}
           margin="auto"
@@ -60,7 +60,7 @@ const CreateBlog = () => {
             padding={3}
             color="gray"
           >
-            Create A Post
+            Create a Post
           </Typography>
           <InputLabel
             sx={{ mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" }}

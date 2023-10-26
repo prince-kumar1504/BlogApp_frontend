@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BlogCard from "../components/BlogCard";
+import "../index.css";
 const Blogs = () => {
 
   const apiUrl = "https://gray-alive-bluefish.cyclic.app";
@@ -31,7 +32,7 @@ const Blogs = () => {
             description={blog?.description}
             image={blog?.image}
             username={blog?.user?.username}
-            time={blog.createdAt}
+            time={blog?.createdAt}
           />
         ))}
     </div>

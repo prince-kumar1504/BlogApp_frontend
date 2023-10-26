@@ -35,13 +35,13 @@ const Header = () => {
   };
   return (
     <>
-      <AppBar position="sticky">
+      <AppBar position="sticky" sx={{ backgroundColor: '#424242' }}>
         <Toolbar>
-          <Typography variant="h4">Blogs</Typography>
+          <Typography variant="h4" >InsightfulWrites</Typography>
           {isLogin && (
-            <Box display={"flex"} marginLeft="auto" marginRight={"auto"}>
+            <Box display={"flex"} marginLeft="auto" marginRight="auto">
               <Tabs
-                textColor="inherit"
+                textColor="white"
                 value={value}
                 onChange={(e, val) => setValue(val)}
               >
@@ -55,10 +55,10 @@ const Header = () => {
               </Tabs>
             </Box>
           )}
-          <Box display={"flex"} marginLeft="auto">
+          <Box display={"flex"} marginLeft={"5"}>
             {!isLogin && (
               <>
-                <Button
+                <Button 
                   sx={{ margin: 1, color: "white" }}
                   LinkComponent={Link}
                   to="/login"
@@ -75,7 +75,7 @@ const Header = () => {
               </>
             )}
             {isLogin && (
-              <Button onClick={handleLogout} sx={{ margin: 1, color: "white" }}>
+              <Button  onClick={handleLogout} sx={{ margin: 1, color: "white" }}>
                 Logout
               </Button>
             )}

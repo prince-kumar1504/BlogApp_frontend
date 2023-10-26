@@ -7,6 +7,17 @@ const UserBlogs = () => {
 
   const [blogs, setBlogs] = useState([]);
 
+
+  const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    margin: '0',
+  };
+  const headingStyle = {
+    textAlign: 'center',
+  };
   //get user blogs
   const getUserBlogs = async () => {
     try {
@@ -39,7 +50,9 @@ const UserBlogs = () => {
           />
         ))
       ) : (
-        <h1>You Havent Created a blog</h1>
+        <div style={containerStyle}>
+          <h1 style={headingStyle}>You Haven't Created a blog</h1>
+        </div>
       )}
     </div>
   );

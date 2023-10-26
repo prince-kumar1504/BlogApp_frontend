@@ -13,7 +13,10 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 
+
+
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import { ForkRight } from "@mui/icons-material";
 
 export default function BlogCard({
   title,
@@ -34,7 +37,8 @@ export default function BlogCard({
     try {
       const { data } = await axios.delete(`${apiUrl}/api/v1/blog/delete-blog/${id}`);
       if (data?.success) {
-        alert("Blog Deleted");
+        toast.success("Blog Deleted Successfully")
+        // alert("Blog Deleted");
         window.location.reload();
       }
     } catch (error) {
@@ -44,7 +48,7 @@ export default function BlogCard({
   return (
     <Card
       sx={{
-        width: "60%",
+        width: "50%",
         margin: "auto",
         mt: 2,
         padding: 0,
@@ -57,7 +61,8 @@ export default function BlogCard({
     >
       {isUser && (
         <Box display={"flex"}>
-          <IconButton onClick={handleEdit} sx={{ marginLeft: "auto" }}>
+          <Typography marginTop={0.8} paddingRight={2} sx={{ marginLeft: "auto" }} variant="h6" color="text.secondary">Actions:</Typography>
+          <IconButton onClick={handleEdit} >
             <ModeEditIcon color="info" />
           </IconButton>
           <IconButton onClick={handleDelete}>
@@ -65,16 +70,20 @@ export default function BlogCard({
           </IconButton>
         </Box>
       )}
+
+      {username &&
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            {username?.slice(0,1)?.toUpperCase()}
-          </Avatar>
-        }
-        title={username?.toUpperCase()}
-        subheader={formatDistanceToNow(new Date(time),{addSuffix:true})}
-      />
-      <CardMedia component="img"  width="40"  image={image} alt="image" />
+      avatar={
+        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          {username?.slice(0,1)?.toUpperCase()}
+        </Avatar>
+      }
+      title={ username?.toUpperCase() }
+      subheader={formatDistanceToNow(new Date(time),{addSuffix:true})}
+    />
+      }
+      
+      <CardMedia component="img"  height={400}  image={image} alt="image" />
       <CardContent>
         <Typography variant="h4" color="text.secondary">
           Title : {title?.charAt(0)?.toUpperCase() + title?.slice(1)}

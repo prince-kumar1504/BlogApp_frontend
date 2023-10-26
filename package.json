@@ -1,7 +1,7 @@
 {
   "homepage": "https://prince-kumar1504.github.io/BlogApp_frontend/",
   "name": "client",
-  "proxy": "http://localhost:8080",
+  "proxy": "https://gray-alive-bluefish.cyclic.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
