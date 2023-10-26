@@ -1,0 +1,2 @@
+*{box-sizing:border-box;margin:0;padding:0}:root{--error:#e7195a}body{font-family:roboto,sans-serif}div.error{background:#ffefef;border:1px solid #e7195a;border:1px solid var(--error);border-radius:4px;color:#e7195a;color:var(--error);margin:20px 0;padding:5px}
+/*# sourceMappingURL=main.476339b9.css.map*/
