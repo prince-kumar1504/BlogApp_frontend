@@ -3,9 +3,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import toast from "react-hot-toast";
+
+import API from "../axios/api"
+
 const CreateBlog = () => {
 
-  const apiUrl = "https://gray-alive-bluefish.cyclic.app";
+  const apiUrl = API.BASE_URL
 
   const id = localStorage.getItem("userId");
   const navigate = useNavigate();
@@ -27,7 +30,7 @@ const CreateBlog = () => {
     try {
       const { data } = await axios.post(`${apiUrl}/api/v1/blog/create-blog`, {
         title: inputs.title,
-        description: inputs.description,
+        description: encodeURIComponent(inputs.description),
         image: inputs.image,
         user: id,
       });
@@ -82,6 +85,8 @@ const CreateBlog = () => {
           </InputLabel>
           <TextField
             name="description"
+            multiline
+            rows={4}
             value={inputs.description}
             onChange={handleChange}
             margin="normal"

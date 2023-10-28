@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import toast from "react-hot-toast";
 import axios from "axios";
+
+import API from "../axios/api"
+
+
 const Register = () => {
 
-  const apiUrl = "https://gray-alive-bluefish.cyclic.app";
+  const apiUrl = API.BASE_URL
+
   const navigate = useNavigate();
   //state
   const [inputs, setInputs] = useState({
@@ -39,8 +44,8 @@ const Register = () => {
         navigate("/login");
       }
     } catch (error) {
-      setError(error.response.data.message)
-      console.log(error.response.data);
+      setError(error?.response?.data?.message)
+      console.log(error?.response?.data);
     }
   };
   return (

@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BlogCard from "../components/BlogCard";
 import "../index.css";
+
+import API from "../axios/api"
+
 const Blogs = () => {
 
-  const apiUrl = "https://gray-alive-bluefish.cyclic.app";
+  const apiUrl = API.BASE_URL
 
   const [blogs, setBlogs] = useState([]);
   //get blogs

@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../redux/store";
 import toast from "react-hot-toast";
+
+
 const Header = () => {
   // global state
   let isLogin = useSelector((state) => state.isLogin);
@@ -55,7 +57,7 @@ const Header = () => {
               </Tabs>
             </Box>
           )}
-          <Box display={"flex"} marginLeft={"5"}>
+          <Box display={"flex"} marginLeft={"auto"}>
             {!isLogin && (
               <>
                 <Button 

@@ -6,13 +6,13 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../redux/store";
 import toast from "react-hot-toast";
 
-
+import API from "../axios/api"
 
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const apiUrl = "https://gray-alive-bluefish.cyclic.app";
+  const apiUrl = API.BASE_URL
   //state
   const [inputs, setInputs] = useState({
     email: "",

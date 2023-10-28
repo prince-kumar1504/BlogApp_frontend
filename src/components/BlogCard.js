@@ -16,7 +16,9 @@ import axios from "axios";
 
 
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
-import { ForkRight } from "@mui/icons-material";
+// import { ForkRight } from "@mui/icons-material";
+
+import API from "../axios/api"
 
 export default function BlogCard({
   title,
@@ -27,7 +29,7 @@ export default function BlogCard({
   id,
   isUser,
 }) {
-  const apiUrl = "https://gray-alive-bluefish.cyclic.app"
+  const apiUrl = API.BASE_URL
   const navigate = useNavigate();
   const handleEdit = () => {
     navigate(`/blog-details/${id}`);

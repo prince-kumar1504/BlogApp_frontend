@@ -3,9 +3,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
+
+import API from "../axios/api"
+
 const BlogDetails = () => {
 
-  const apiUrl = "https://gray-alive-bluefish.cyclic.app";
+  const apiUrl = API.BASE_URL
 
   const [blog, setBlog] = useState({});
   const id = useParams().id;
@@ -79,7 +82,7 @@ const BlogDetails = () => {
             padding={3}
             color="gray"
           >
-            Update A Pots
+            Update A Post
           </Typography>
           <InputLabel
             sx={{ mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" }}
