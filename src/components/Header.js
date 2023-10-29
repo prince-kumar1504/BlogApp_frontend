@@ -41,7 +41,7 @@ const Header = () => {
         <Toolbar>
           <Typography variant="h4" >InsightfulWrites</Typography>
           {isLogin && (
-            <Box display={"flex"} marginLeft="auto" marginRight="auto">
+            <Box display={"flex"} marginLeft="auto" >
               <Tabs
                 textColor="white"
                 value={value}
@@ -57,7 +57,7 @@ const Header = () => {
               </Tabs>
             </Box>
           )}
-          <Box display={"flex"} marginLeft={"auto"}>
+          <Box display={"flex"} >
             {!isLogin && (
               <>
                 <Button 

@@ -41,7 +41,7 @@ const UserBlogs = () => {
   }, []);
   console.log(blogs);
   return (
-    <div>
+    <div style={{width:"60%", margin:"5px auto 5px auto"}}>
       {blogs && blogs?.length > 0 ? (
         blogs.map((blog) => (
           <BlogCard

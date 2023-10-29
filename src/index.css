@@ -22,4 +22,33 @@ div.error {
   margin: 20px 0;
 }
 
+/* single blog page */
+
+.blog-details-container {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.blog-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.blog-username {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.blog-image {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+
+.blog-description {
+  font-size: 16px;
+}
+
 

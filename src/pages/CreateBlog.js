@@ -30,7 +30,7 @@ const CreateBlog = () => {
     try {
       const { data } = await axios.post(`${apiUrl}/api/v1/blog/create-blog`, {
         title: inputs.title,
-        description: encodeURIComponent(inputs.description),
+        description: inputs.description,
         image: inputs.image,
         user: id,
       });

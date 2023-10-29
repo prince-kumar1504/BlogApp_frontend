@@ -3,7 +3,11 @@ import axios from "axios";
 import BlogCard from "../components/BlogCard";
 import "../index.css";
 
+
 import API from "../axios/api"
+import { Grid } from "@mui/material";
+
+
 
 const Blogs = () => {
 
@@ -16,6 +20,7 @@ const Blogs = () => {
       const { data } = await axios.get(`${apiUrl}/api/v1/blog/all-blog`);
       if (data?.success) {
         setBlogs(data?.blogs);
+        console.log(data?.blogs);
       }
     } catch (error) {
       console.log(error);
@@ -23,21 +28,26 @@ const Blogs = () => {
   };
   useEffect(() => {
     getAllBlogs();
-  }, []);
+  }, [blogs?.user?._id]);
+
   return (
     <div>
-      {blogs &&
-        blogs.map((blog) => (
-          <BlogCard
-            id={blog?._id}
-            isUser={localStorage.getItem("userId") === blog?.user?._id}
-            title={blog?.title}
-            description={blog?.description}
-            image={blog?.image}
-            username={blog?.user?.username}
-            time={blog?.createdAt}
-          />
-        ))}
+      <Grid container spacing={2} width={"70%"} marginLeft={"auto" } marginRight={"auto"}>
+        {blogs &&
+          blogs.map((blog) => (
+            <Grid item xs={12} sm={12} md={6} lg={6} key={blog?._id}>
+              <BlogCard
+                id={blog?._id}
+                isUser={localStorage.getItem("userId") === blog?.user?._id}
+                title={blog?.title}
+                description={blog?.description}
+                image={blog?.image}
+                username={blog?.user?.username}
+                time={blog?.createdAt}
+              />
+            </Grid>
+          ))}
+      </Grid>
     </div>
   );
 };

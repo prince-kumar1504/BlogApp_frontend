@@ -21,9 +21,9 @@ const BlogDetails = () => {
       if (data?.success) {
         setBlog(data?.blog);
         setInputs({
-          title: data?.blog.title,
-          description: data?.blog.description,
-          image: data?.blog.image,
+          title: data?.blog?.title,
+          description: data?.blog?.description,
+          image: data?.blog?.image,
         });
       }
     } catch (error) {
@@ -47,9 +47,9 @@ const BlogDetails = () => {
     e.preventDefault();
     try {
       const { data } = await axios.put(`${apiUrl}/api/v1/blog/update-blog/${id}`, {
-        title: inputs.title,
-        description: inputs.description,
-        image: inputs.image,
+        title: inputs?.title,
+        description: inputs?.description,
+        image: inputs?.image,
         user: id,
       });
       if (data?.success) {

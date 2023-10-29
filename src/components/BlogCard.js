@@ -8,11 +8,13 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, IconButton } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 
+
+import SendIcon from '@mui/icons-material/Send';
 
 
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
@@ -20,7 +22,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
 import API from "../axios/api"
 
-export default function BlogCard({
+const BlogCard = ({
   title,
   description,
   image,
@@ -28,12 +30,23 @@ export default function BlogCard({
   time,
   id,
   isUser,
-}) {
+}) => {
   const apiUrl = API.BASE_URL
+
+  // edit handler 
   const navigate = useNavigate();
   const handleEdit = () => {
     navigate(`/blog-details/${id}`);
   };
+
+  // readmore handler
+  const handleReadMore = () => {
+    navigate(`/get-blog/${id}`);
+  }
+
+
+  const formattedDescription = description.replace(/\n/g, '<br/>');
+  // const updatedDescription = formattedDescription.slice(0, 1).toUpperCase() + formattedDescription.slice(1) + "..."
 
   const handleDelete = async () => {
     try {
@@ -50,52 +63,67 @@ export default function BlogCard({
   return (
     <Card
       sx={{
-        width: "50%",
+        width: "90%",
         margin: "auto",
-        mt: 2,
+        mt: 5,
         padding: 0,
-        borderRadius:5,
-        boxShadow: "5px 5px 10px #ccc",
-        ":hover:": {
-          boxShadow: "10px 10px 20px #ccc",
-        },
+        borderRadius: 2,
+        boxShadow: "2px 2px 5px #ccc",
+        height: "490px",
+        marginBottom: "20px",
+        position: "relative",
+        
       }}
     >
-      {isUser && (
-        <Box display={"flex"}>
-          <Typography marginTop={0.8} paddingRight={2} sx={{ marginLeft: "auto" }} variant="h6" color="text.secondary">Actions:</Typography>
-          <IconButton onClick={handleEdit} >
-            <ModeEditIcon color="info" />
-          </IconButton>
-          <IconButton onClick={handleDelete}>
-            <DeleteIcon color="error" />
-          </IconButton>
-        </Box>
-      )}
 
-      {username &&
       <CardHeader
-      avatar={
-        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-          {username?.slice(0,1)?.toUpperCase()}
-        </Avatar>
-      }
-      title={ username?.toUpperCase() }
-      subheader={formatDistanceToNow(new Date(time),{addSuffix:true})}
-    />
-      }
-      
-      <CardMedia component="img"  height={400}  image={image} alt="image" />
+        avatar={
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            {username?.slice(0, 1)?.toUpperCase()}
+          </Avatar>
+        }
+        title={username ? username : "You"}
+        subheader={formatDistanceToNow(new Date(time), { addSuffix: true })}
+        action={isUser && (
+          <Box display={"flex"}>
+            <IconButton onClick={handleEdit} >
+              <ModeEditIcon color="info" />
+            </IconButton>
+            <IconButton onClick={handleDelete}>
+              <DeleteIcon color="error" />
+            </IconButton>
+          </Box>
+        )}
+
+      />
+
+
+
+      <CardMedia component="img" height={200} image={image} alt="image" />
       <CardContent>
-        <Typography variant="h4" color="text.secondary">
-          Title : {title?.charAt(0)?.toUpperCase() + title?.slice(1)}
+        <Typography variant="h4" color="text.secondary"
+        style={{
+          overflow: "hidden",
+          maxHeight: "1.5em",
+          lineHeight: "1.5",
+        }}>
+          {title?.charAt(0)?.toUpperCase() + title?.slice(1)}
         </Typography>
         <br></br>
-        <Typography variant="h5" color="text.secondary">
-          Description : 
+        <Typography variant="body1" color="text.secondary" dangerouslySetInnerHTML={{ __html: formattedDescription }}
+          style={{
+            overflow: "hidden",
+            maxHeight: "4.5em",
+            lineHeight: "1.5",
+          }}>
         </Typography>
-        <Typography variant="h6" color="text.secondary">{description?.charAt(0)?.toUpperCase() + description?.slice(1)}</Typography>
+        <Box mt={2}>
+          <Button onClick={handleReadMore} endIcon={<SendIcon />} variant="contained" size="small" color="primary">Read More</Button>
+        </Box>
       </CardContent>
     </Card>
   );
 }
+
+
+export default BlogCard
