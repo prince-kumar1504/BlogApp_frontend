@@ -31,7 +31,7 @@ const BlogCard = ({
   id,
   isUser,
 }) => {
-  const apiUrl = API.BASE_URL
+  const apiUrl = API.BLOG_URL
 
   // edit handler 
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ const BlogCard = ({
 
   const handleDelete = async () => {
     try {
-      const { data } = await axios.delete(`${apiUrl}/api/v1/blog/delete-blog/${id}`);
+      const { data } = await axios.delete(`${apiUrl}/delete-blog/${id}`);
       if (data?.success) {
         toast.success("Blog Deleted Successfully")
         // alert("Blog Deleted");

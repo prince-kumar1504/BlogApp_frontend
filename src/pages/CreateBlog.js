@@ -8,7 +8,7 @@ import API from "../axios/api"
 
 const CreateBlog = () => {
 
-  const apiUrl = API.BASE_URL
+  const apiUrl = API.BLOG_URL
 
   const id = localStorage.getItem("userId");
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const CreateBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`${apiUrl}/api/v1/blog/create-blog`, {
+      const { data } = await axios.post(`${apiUrl}/create-blog`, {
         title: inputs.title,
         description: inputs.description,
         image: inputs.image,

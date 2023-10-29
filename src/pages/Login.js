@@ -12,7 +12,7 @@ import API from "../axios/api"
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const apiUrl = API.BASE_URL
+  const apiUrl = API.USER_URL
   //state
   const [inputs, setInputs] = useState({
     email: "",
@@ -33,7 +33,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`${apiUrl}/api/v1/user/login`, {
+      const { data } = await axios.post(`${apiUrl}/login`, {
         email: inputs.email,
         password: inputs.password,
       });

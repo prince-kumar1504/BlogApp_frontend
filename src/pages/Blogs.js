@@ -11,13 +11,13 @@ import { Grid } from "@mui/material";
 
 const Blogs = () => {
 
-  const apiUrl = API.BASE_URL
+  const apiUrl = API.BLOG_URL
 
   const [blogs, setBlogs] = useState([]);
   //get blogs
   const getAllBlogs = async () => {
     try {
-      const { data } = await axios.get(`${apiUrl}/api/v1/blog/all-blog`);
+      const { data } = await axios.get(`${apiUrl}/all-blog`);
       if (data?.success) {
         setBlogs(data?.blogs);
         console.log(data?.blogs);

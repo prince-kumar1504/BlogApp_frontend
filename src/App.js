@@ -15,7 +15,7 @@ function App() {
       <Header />
       <Toaster />
       <Routes>
-        <Route path="/BlogApp_frontend" element={<Blogs />} />
+        {/* <Route path="/BlogApp_frontend" element={<Blogs />} /> */}
         <Route path="/" element={<Blogs />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/get-blog/:id" element={<Blog/>} />

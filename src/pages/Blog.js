@@ -21,13 +21,13 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 const Blog = () => {
 
 
-  const apiUrl = API.BASE_URL;
+  const apiUrl = API.BLOG_URL;
 
   const id = useParams().id;
   console.log(id);
 
   const [singleBlog, setSingleBlog] = useState({});
-  
+
   const userId = localStorage.getItem('userId');
   console.log(userId)
 
@@ -35,8 +35,8 @@ const Blog = () => {
   // get blog data 
   const getBlogDetail = async () => {
     try {
-      const { data } = await axios.get(`${apiUrl}/api/v1/blog/get-blog/${id}`,{
-        params:{
+      const { data } = await axios.get(`${apiUrl}/get-blog/${id}`, {
+        params: {
           userId: userId,
         },
       });
@@ -50,9 +50,9 @@ const Blog = () => {
   };
 
   useEffect(() => {
-   
+
     getBlogDetail()
-    
+
   }, [userId])
 
   const formattedDescription = singleBlog?.description?.replace(/\n/g, '<br/>');
@@ -62,17 +62,17 @@ const Blog = () => {
   return (
     // <div>{id}</div>
     <Card
-      variant="outlined" mt={10} 
+      variant="outlined" mt={10}
       sx={{
         width: '90%',
         margin: 'auto',
         border: 'none',
         padding: 0,
         '@media (min-width:1000px)': {
-          width: "70%", 
+          width: "70%",
         },
         '@media (min-width:1220px)': {
-          width: "50%", 
+          width: "50%",
         },
       }}
     >
@@ -88,7 +88,7 @@ const Blog = () => {
         </Box>
       )} */}
 
-      <Typography variant="h2" style={{fontWeight:"600", marginTop:"50px"}} >
+      <Typography variant="h2" style={{ fontWeight: "600", marginTop: "50px" }} >
         Title : {singleBlog?.title?.charAt(0)?.toUpperCase() + singleBlog?.title?.slice(1)}
       </Typography>
       <CardHeader
@@ -98,25 +98,25 @@ const Blog = () => {
           </Avatar>
         }
         title={singleBlog?.user?.username?.toUpperCase()}
-        subheader={singleBlog?.createdAt ? formatDistanceToNow(new Date(singleBlog?.createdAt), { addSuffix: true }):"Unkonwn Date"}
+        subheader={singleBlog?.createdAt ? formatDistanceToNow(new Date(singleBlog?.createdAt), { addSuffix: true }) : "Unkonwn Date"}
         action={
-          <div style={{ display: 'flex', alignItems: 'center', marginTop:"15px" }}>
-            <RemoveRedEyeIcon style={{ color: 'primary', verticalAlign: 'middle' }} /> 
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: "15px" }}>
+            <RemoveRedEyeIcon style={{ color: 'primary', verticalAlign: 'middle' }} />
             <h4 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}>{singleBlog?.views} views</h4>
             {
-              
+
             }
           </div>
         }
       />
       {/* <h3><BsFillEyeFill/></h3> */}
-      
 
-      <CardMedia component="img"  style={{ minHeight: '40vh', border: "0.1px solid lightgrey" }} image={singleBlog?.image} alt="image" />
+
+      <CardMedia component="img" style={{ minHeight: '40vh', border: "0.1px solid lightgrey" }} image={singleBlog?.image} alt="image" />
       <CardContent>
 
         <br></br>
-        <Typography variant="h6"  dangerouslySetInnerHTML={{ __html: updatedDescription }} />
+        <Typography variant="h6" dangerouslySetInnerHTML={{ __html: updatedDescription }} />
       </CardContent>
     </Card>
   )

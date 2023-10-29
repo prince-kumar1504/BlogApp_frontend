@@ -9,7 +9,7 @@ import API from "../axios/api"
 
 const Register = () => {
 
-  const apiUrl = API.BASE_URL
+  const apiUrl = API.USER_URL
 
   const navigate = useNavigate();
   //state
@@ -33,7 +33,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`${apiUrl}/api/v1/user/register`, {
+      const { data } = await axios.post(`${apiUrl}/register`, {
         username: inputs.name,
         email: inputs.email,
         password: inputs.password,

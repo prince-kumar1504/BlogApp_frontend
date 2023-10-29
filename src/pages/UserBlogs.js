@@ -8,7 +8,7 @@ import API from "../axios/api"
 
 const UserBlogs = () => {
 
-  const apiUrl = API.BASE_URL
+  const apiUrl = API.BLOG_URL
 
   const [blogs, setBlogs] = useState([]);
 
@@ -27,7 +27,7 @@ const UserBlogs = () => {
   const getUserBlogs = async () => {
     try {
       const id = localStorage.getItem("userId");
-      const { data } = await axios.get(`${apiUrl}/api/v1/blog/user-blog/${id}`);
+      const { data } = await axios.get(`${apiUrl}/user-blog/${id}`);
       if (data?.success) {
         setBlogs(data?.userBlog?.blogs);
       }

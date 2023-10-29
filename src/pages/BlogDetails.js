@@ -8,7 +8,7 @@ import API from "../axios/api"
 
 const BlogDetails = () => {
 
-  const apiUrl = API.BASE_URL
+  const apiUrl = API.BLOG_URL
 
   const [blog, setBlog] = useState({});
   const id = useParams().id;
@@ -17,7 +17,7 @@ const BlogDetails = () => {
   // get blog details
   const getBlogDetail = async () => {
     try {
-      const { data } = await axios.get(`${apiUrl}/api/v1/blog/get-blog/${id}`);
+      const { data } = await axios.get(`${apiUrl}/get-blog/${id}`);
       if (data?.success) {
         setBlog(data?.blog);
         setInputs({
@@ -46,11 +46,10 @@ const BlogDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put(`${apiUrl}/api/v1/blog/update-blog/${id}`, {
+      const { data } = await axios.put(`${apiUrl}/update-blog/${id}`, {
         title: inputs?.title,
         description: inputs?.description,
         image: inputs?.image,
-        user: id,
       });
       if (data?.success) {
         toast.success("Blog Updated");
@@ -104,6 +103,8 @@ const BlogDetails = () => {
           </InputLabel>
           <TextField
             name="description"
+            multiline
+            rows={4}
             value={inputs.description}
             onChange={handleChange}
             margin="normal"
