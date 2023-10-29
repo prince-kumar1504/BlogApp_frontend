@@ -39,7 +39,7 @@ const Header = () => {
     <>
       <AppBar position="sticky" sx={{ backgroundColor: '#424242' }}>
         <Toolbar>
-          <Typography variant="h4" >InsightfulWrites</Typography>
+          <Typography variant="h4" marginRight={"auto"}>InsightfulWrites</Typography>
           {isLogin && (
             <Box display={"flex"} marginLeft="auto" >
               <Tabs
@@ -57,11 +57,11 @@ const Header = () => {
               </Tabs>
             </Box>
           )}
-          <Box display={"flex"} >
+          <Box display={"flex"}>
             {!isLogin && (
-              <>
+              < >
                 <Button 
-                  sx={{ margin: 1, color: "white" }}
+                  sx={{ marginLeft: 1, color: "white" }}
                   LinkComponent={Link}
                   to="/login"
                 >
