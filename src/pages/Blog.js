@@ -35,9 +35,13 @@ const Blog = () => {
   const [singleBlog, setSingleBlog] = useState({});
 
   // const userId = localStorage.getItem('userId');
-  const userId = Cookies.get('UserId')
+  const userId =  Cookies.get('UserId')  
   // console.log(userId)
-
+  
+  // validation to show the edit and delete button to the auther only
+  const isUser = (singleBlog?.user?._id === userId);
+  // console.log(singleBlog?.user?._id)
+  // console.log(isUser);
 
   // get blog data 
   const getBlogDetail = async () => {
@@ -56,7 +60,7 @@ const Blog = () => {
     }
   };
 
-  const isUser = singleBlog?.user?.username;
+ 
 
   // edit handler 
   const navigate = useNavigate();
