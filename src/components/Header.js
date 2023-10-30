@@ -68,6 +68,7 @@ const Header = () => {
       navigate("/login");
       // localStorage.clear();
       Cookies.remove('UserId');
+      setOpenPopup(null); 
     } catch (error) {
       console.log(error);
     }
@@ -89,6 +90,7 @@ const Header = () => {
   const handleMyBlogsClick = () => {
     setOpenPopup(null);
     navigate("/my-blogs");
+    setValue(3);
   };
 
 
@@ -105,9 +107,10 @@ const Header = () => {
               <Tabs
                 textColor="white"
                 value={value}
-                onChange={(e, val) => setValue(val)}
+                onChange={(e, val) => setValue(val) }
+                
               >
-                <Tab label={<HomeTabLabel />} LinkComponent={Link} to="/" value={0} />
+                <Tab label={<HomeTabLabel />}  LinkComponent={Link} to="/" value={0} />
                 <Tab label={<WriteTabLabel />} LinkComponent={Link} to="/create-blog" value={1} />
               </Tabs>
             </Box>
