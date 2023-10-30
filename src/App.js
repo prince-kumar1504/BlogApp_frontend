@@ -1,5 +1,5 @@
 import Header from "./components/Header";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter, HashRouter } from "react-router-dom";
 import Blogs from "./pages/Blogs";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -12,9 +12,11 @@ import Blog from "./pages/Blog";
 function App() {
   return (
     <>
+    <BrowserRouter basename="/BlogApp_frontend">
       <Header />
       <Toaster />
-      <Routes>
+     
+      <Routes >
         <Route path="/BlogApp_frontend" element={<Blogs />} />
         <Route path="/" element={<Blogs />} />
         <Route path="/blogs" element={<Blogs />} />
@@ -25,6 +27,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
+      </BrowserRouter>
     </>
   );
 }
