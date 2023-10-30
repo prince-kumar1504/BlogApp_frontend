@@ -40,7 +40,7 @@ const BlogCard = ({
   // global state
   let isLogin = useSelector((state) => state.isLogin);
   // isLogin = isLogin || localStorage.getItem("userId") ;
-  isLogin = isLogin || Cookies.get('UsedId')
+  isLogin = isLogin || Cookies.get("UserId")
  
 
   // edit handler 
