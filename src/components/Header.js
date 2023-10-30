@@ -108,7 +108,7 @@ const Header = () => {
                 textColor="white"
                 value={value}
                 onChange={(e, val) => setValue(val) }
-                
+                indicatorColor="transparent"
               >
                 <Tab label={<HomeTabLabel />}  LinkComponent={Link} to="/" value={0} />
                 <Tab label={<WriteTabLabel />} LinkComponent={Link} to="/create-blog" value={1} />
