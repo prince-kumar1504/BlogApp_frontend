@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   AppBar,
@@ -8,21 +8,57 @@ import {
   Typography,
   Tabs,
   Tab,
+  Popover,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  IconButton,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../redux/store";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
+// Icons
+
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import DrawOutlinedIcon from '@mui/icons-material/DrawOutlined';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import LaptopChromebookRoundedIcon from '@mui/icons-material/LaptopChromebookRounded';
+
+
+
+
+const HomeTabLabel = () => (
+  <Box display="flex" alignItems="center">
+    <HomeOutlinedIcon />
+    <Typography variant="body1" marginLeft={1}>
+      Home
+    </Typography>
+  </Box>
+);
+
+const WriteTabLabel = () => (
+  <Box display="flex" alignItems="center">
+    <DrawOutlinedIcon />
+    <Typography variant="body1" marginLeft={1}>
+      write
+    </Typography>
+  </Box>
+);
 
 const Header = () => {
   // global state
   let isLogin = useSelector((state) => state.isLogin);
-  isLogin = isLogin || localStorage.getItem("userId");
+  // isLogin = isLogin || localStorage.getItem("userId");
+  isLogin = isLogin || Cookies.get('UserId');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //state
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
 
   //logout
   const handleLogout = () => {
@@ -30,16 +66,40 @@ const Header = () => {
       dispatch(authActions.logout());
       toast.success("Logout Successfully");
       navigate("/login");
-      localStorage.clear();
+      // localStorage.clear();
+      Cookies.remove('UserId');
     } catch (error) {
       console.log(error);
     }
   };
+
+  // State for popover
+  const [openPopup, setOpenPopup] = useState(null);
+
+  // Open popover
+  const handleClick = (event) => {
+    setOpenPopup(event.currentTarget);
+  };
+
+  // Close popover
+  const handleClose = (event) => {
+    setOpenPopup(null);
+  };
+
+  const handleMyBlogsClick = () => {
+    setOpenPopup(null);
+    navigate("/my-blogs");
+  };
+
+
+
   return (
     <>
       <AppBar position="sticky" sx={{ backgroundColor: '#424242' }}>
         <Toolbar>
-          <Typography variant="h4" marginRight={"auto"}>InsightfulWrites</Typography>
+          <Typography variant="h4" marginRight={"auto"} style={{ display: 'flex', alignItems: 'center' }}>
+            <LaptopChromebookRoundedIcon fontSize="20" style={{marginRight:"5px"}}/>InsightfulWrites
+          </Typography>
           {isLogin && (
             <Box display={"flex"} marginLeft="auto" >
               <Tabs
@@ -47,20 +107,17 @@ const Header = () => {
                 value={value}
                 onChange={(e, val) => setValue(val)}
               >
-                <Tab label="Blogs" LinkComponent={Link} to="/blogs" />
-                <Tab label="My Blogs" LinkComponent={Link} to="/my-blogs" />
-                <Tab
-                  label="Create Blog"
-                  LinkComponent={Link}
-                  to="/create-blog"
-                />
+                <Tab label={<HomeTabLabel />} LinkComponent={Link} to="/" value={0} />
+                <Tab label={<WriteTabLabel />} LinkComponent={Link} to="/create-blog" value={1} />
               </Tabs>
             </Box>
           )}
+
+
           <Box display={"flex"}>
             {!isLogin && (
               < >
-                <Button 
+                <Button
                   sx={{ marginLeft: 1, color: "white" }}
                   LinkComponent={Link}
                   to="/login"
@@ -77,9 +134,43 @@ const Header = () => {
               </>
             )}
             {isLogin && (
-              <Button  onClick={handleLogout} sx={{ margin: 1, color: "white" }}>
-                Logout
-              </Button>
+              <Box display="flex" marginLeft="auto">
+                <IconButton
+                  color="inherit"
+                  onClick={handleClick}
+                  aria-label="user-icon"
+                >
+                  <AccountCircleIcon fontSize="large"/>
+                </IconButton>
+                <Popover
+                  open={Boolean(openPopup)}
+                  anchorEl={openPopup}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                >
+                  <List>
+                    <ListItem button onClick={handleMyBlogsClick}>
+                      <ListItemIcon>
+                        <LibraryBooksIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="My Blogs" />
+                    </ListItem>
+                    <ListItem button onClick={handleLogout}>
+                      <ListItemIcon>
+                        <ExitToAppIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Logout" />
+                    </ListItem>
+                  </List>
+                </Popover>
+              </Box>
             )}
           </Box>
         </Toolbar>

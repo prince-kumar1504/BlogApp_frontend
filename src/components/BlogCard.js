@@ -13,6 +13,9 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 
+import { useSelector, useDispatch } from "react-redux";
+// import { authActions } from "../redux/store";
+
 
 import SendIcon from '@mui/icons-material/Send';
 
@@ -21,6 +24,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 // import { ForkRight } from "@mui/icons-material";
 
 import API from "../axios/api"
+import Cookies from "js-cookie";
 
 const BlogCard = ({
   title,
@@ -33,6 +37,12 @@ const BlogCard = ({
 }) => {
   const apiUrl = API.BLOG_URL
 
+  // global state
+  let isLogin = useSelector((state) => state.isLogin);
+  // isLogin = isLogin || localStorage.getItem("userId") ;
+  isLogin = isLogin || Cookies.get('UsedId')
+ 
+
   // edit handler 
   const navigate = useNavigate();
   const handleEdit = () => {
@@ -41,7 +51,10 @@ const BlogCard = ({
 
   // readmore handler
   const handleReadMore = () => {
-    navigate(`/get-blog/${id}`);
+    {isLogin && navigate(`/get-blog/${id}`)}
+    {!isLogin &&(
+      toast.error("Login or Register to Read More")
+    )}
   }
 
 

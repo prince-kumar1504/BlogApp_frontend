@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authActions } from "../redux/store";
 import toast from "react-hot-toast";
+import Cookies from 'js-cookie';
 
 import API from "../axios/api"
 
@@ -38,14 +39,17 @@ const Login = () => {
         password: inputs.password,
       });
       if (data.success) {
-        localStorage.setItem("userId", data?.user._id);
+
+        // localStorage.setItem("userId", data?.user._id);
+
+        Cookies.set('UserId', data?.user._id, {expires: 2});
         dispatch(authActions.login());
         setError(null)
         toast.success("User login Successfully");
         navigate("/");
       }
     } catch (error) {
-      console.log(error.response.data);
+      // console.log(error.response.data);
       setError(error.response.data.message)
     }
   };

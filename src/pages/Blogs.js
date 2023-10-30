@@ -6,6 +6,7 @@ import "../index.css";
 
 import API from "../axios/api"
 import { Grid } from "@mui/material";
+import Cookies from "js-cookie";
 
 
 
@@ -20,7 +21,7 @@ const Blogs = () => {
       const { data } = await axios.get(`${apiUrl}/all-blog`);
       if (data?.success) {
         setBlogs(data?.blogs);
-        console.log(data?.blogs);
+        // console.log(data?.blogs);
       }
     } catch (error) {
       console.log(error);
@@ -38,7 +39,7 @@ const Blogs = () => {
             <Grid item xs={12} sm={12} md={6} lg={6} key={blog?._id}>
               <BlogCard
                 id={blog?._id}
-                isUser={localStorage.getItem("userId") === blog?.user?._id}
+                isUser={Cookies.get('UserId') === blog?.user?._id}
                 title={blog?.title}
                 description={blog?.description}
                 image={blog?.image}

@@ -10,7 +10,7 @@ const BlogDetails = () => {
 
   const apiUrl = API.BLOG_URL
 
-  const [blog, setBlog] = useState({});
+  // const [blog, setBlog] = useState({});
   const id = useParams().id;
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({});
@@ -19,7 +19,7 @@ const BlogDetails = () => {
     try {
       const { data } = await axios.get(`${apiUrl}/get-blog/${id}`);
       if (data?.success) {
-        setBlog(data?.blog);
+        // setBlog(data?.blog);
         setInputs({
           title: data?.blog?.title,
           description: data?.blog?.description,
@@ -59,20 +59,22 @@ const BlogDetails = () => {
       console.log(error);
     }
   };
-  console.log(blog);
+  // console.log(blog);
   return (
     <v>
       <form onSubmit={handleSubmit}>
         <Box
-          width={"50%"}
-          border={3}
-          borderRadius={10}
-          padding={3}
-          margin="auto"
-          boxShadow={"10px 10px 20px #ccc"}
-          display="flex"
-          flexDirection={"column"}
-          marginTop="30px"
+          sx={{
+            width: '100%',
+            maxWidth: { xs: '90%', sm: '90%', md: '70%', lg: '50%' },
+            borderRadius: 10,
+            padding: 3,
+            margin: 'auto',
+            boxShadow: '10px 10px 20px #ccc',
+            display: 'flex',
+            flexDirection: 'column',
+            marginTop: '30px',
+          }}
         >
           <Typography
             variant="h2"
@@ -111,6 +113,28 @@ const BlogDetails = () => {
             variant="outlined"
             required
           />
+          {/* Image preview */}
+          {inputs.image && (
+            <img
+              src={inputs.image}
+              alt=""
+              style={{ width: "250px", margin: "0 auto 0 auto", border: "2px solid black", borderRadius: "5px" }}
+            />
+          )}{!inputs.image &&
+            (<div
+              style={{
+                width: "250px",
+                height: "190px",
+                margin: "0 auto 0 auto",
+                border: "2px dashed grey",
+                borderRadius: "5px",
+                textAlign: "center",
+
+              }} >
+              <h4 style={{ marginTop: "90px", color: "Grey", fontFamily: "times new roman" }}>Image Preview</h4>
+            </div>)
+          }
+          {/* Image URL input */}
           <InputLabel
             sx={{ mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" }}
           >

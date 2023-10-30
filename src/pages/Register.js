@@ -39,13 +39,13 @@ const Register = () => {
         password: inputs.password,
       });
       if (data.success) {
-        toast.success("User Register Successfully");
+        toast.success("User Registered Successfully");
         setError(null)
         navigate("/login");
       }
     } catch (error) {
       setError(error?.response?.data?.message)
-      console.log(error?.response?.data);
+      // console.log(error?.response?.data);
     }
   };
   return (

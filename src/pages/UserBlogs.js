@@ -4,6 +4,7 @@ import BlogCard from "../components/BlogCard";
 
 
 import API from "../axios/api"
+import Cookies from "js-cookie";
 
 
 const UserBlogs = () => {
@@ -26,7 +27,8 @@ const UserBlogs = () => {
   //get user blogs
   const getUserBlogs = async () => {
     try {
-      const id = localStorage.getItem("userId");
+      // const id = localStorage.getItem("userId");
+      const id = Cookies.get('UserId')
       const { data } = await axios.get(`${apiUrl}/user-blog/${id}`);
       if (data?.success) {
         setBlogs(data?.userBlog?.blogs);
@@ -39,7 +41,7 @@ const UserBlogs = () => {
   useEffect(() => {
     getUserBlogs();
   }, []);
-  console.log(blogs);
+  // console.log(blogs);
   return (
     <div style={{width:"60%", margin:"5px auto 5px auto"}}>
       {blogs && blogs?.length > 0 ? (
