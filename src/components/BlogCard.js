@@ -92,10 +92,11 @@ const BlogCard = ({
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            
             {username?.slice(0, 1)?.toUpperCase()}
           </Avatar>
         }
-        title={username ? username : "You"}
+        title={isUser ? "You" : username}
         subheader={formatDistanceToNow(new Date(time), { addSuffix: true })}
         action={isUser && (
           <Box display={"flex"}>

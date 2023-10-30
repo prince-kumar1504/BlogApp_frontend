@@ -121,7 +121,7 @@ const Blog = () => {
             {singleBlog?.user?.username?.slice(0, 1)?.toUpperCase()}
           </Avatar>
         }
-        title={singleBlog?.user?.username?.toUpperCase()}
+        title={isUser ? "You"  : singleBlog?.user?.username}
 
         subheader={singleBlog?.createdAt ? formatDistanceToNow(new Date(singleBlog?.createdAt), { addSuffix: true }) : "Unkonwn Date"}
         
