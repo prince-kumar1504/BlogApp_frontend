@@ -175,21 +175,25 @@ const Blog = () => {
             <h4 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}>{singleBlog?.views} views</h4>
 
 
-            {!isSaved && <IconButton onClick={handleSaveBlog}>
-              <BookmarkAddRoundedIcon style={{ color: 'primary', verticalAlign: 'middle', fontSize: "30px" }} />
-              <h6 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}> Save</h6>
-            </IconButton>}
-            {isSaved && <IconButton onClick={handleUnsaveBlog} >
-              <BookmarkAddedRoundedIcon style={{ color: 'primary', verticalAlign: 'middle', fontSize: "30px" }} />
-              <h6 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}> Saved</h6>
-            </IconButton>
-
-            }
+            {!isUser && (
+              <>
+                {!isSaved && (
+                  <IconButton onClick={handleSaveBlog}>
+                    <BookmarkAddRoundedIcon style={{ color: 'primary', verticalAlign: 'middle', fontSize: "30px" }} />
+                  </IconButton>
+                )}
+                {isSaved && (
+                  <IconButton onClick={handleUnsaveBlog}>
+                    <BookmarkAddedRoundedIcon style={{ color: 'primary', verticalAlign: 'middle', fontSize: "30px" }} />
+                  </IconButton>
+                )}
+              </>
+            )}
 
             {isUser && (
               <Box display={"flex"}>
                 <IconButton onClick={handleEdit} >
-                  <ModeEditIcon color="info"  />
+                  <ModeEditIcon color="info" />
                 </IconButton>
                 <IconButton onClick={handleDelete}>
                   <DeleteIcon color="error" />
