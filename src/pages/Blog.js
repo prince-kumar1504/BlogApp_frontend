@@ -17,19 +17,20 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, IconButton } from "@mui/material";
 import toast from "react-hot-toast";
-
+import Cookies from 'js-cookie';
 
 // icons
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import Cookies from 'js-cookie';
 
+import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
+import BookmarkAddedRoundedIcon from '@mui/icons-material/BookmarkAddedRounded';
 
 const Blog = () => {
 
 
   const apiUrl = API.BLOG_URL;
 
-  const id = useParams().id;
+  const id = useParams().id; // blog id
   // console.log(id);
 
   const [singleBlog, setSingleBlog] = useState({});
@@ -79,6 +80,25 @@ const Blog = () => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  // save blog handler
+
+  const [isSaved, setIsSaved] = useState(false);
+
+  const handleSaveBlog = async () => {
+    try {
+      await axios.post(`${apiUrl}/save-blog/${id}`,null,{
+        params: {
+          userId: userId,
+        },
+      });
+      setIsSaved(true);
+      toast.success("Blog saved successfully!");
+    } catch (error) {
+      console.error("Error saving blog:", error.response.data.message);
+      // toast.success(error.response.data.message);
     }
   };
 
@@ -140,6 +160,9 @@ const Blog = () => {
                 </IconButton>
               </Box>
             )}
+            <IconButton onClick={handleSaveBlog}>
+            <BookmarkAddRoundedIcon  style={{ color: 'primary', verticalAlign: 'middle', fontSize:"40px" }} />
+            </IconButton>
           </div>
         }
       />
