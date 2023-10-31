@@ -12,4 +12,10 @@ const API ={
     USER_URL : "https://gray-alive-bluefish.cyclic.app/api/v1/user"  
 }
 
+// for my network 
+// const API ={
+//    BLOG_URL : "http://192.168.0.187:8080/api/v1/blog",
+//    USER_URL :"http://192.168.0.187:8080/api/v1/user"
+// }
+
 export default API 
