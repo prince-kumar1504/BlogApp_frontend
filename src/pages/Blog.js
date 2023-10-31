@@ -34,14 +34,14 @@ const Blog = () => {
   // console.log(id);
 
   const [singleBlog, setSingleBlog] = useState({});
-  
 
-    const [isSaved, setIsSaved] = useState(false);
+
+  const [isSaved, setIsSaved] = useState(false);
 
   // const userId = localStorage.getItem('userId');
-  const userId =  Cookies.get('UserId')  
+  const userId = Cookies.get('UserId')
   // console.log(userId)
-  
+
   // validation to show the edit and delete button to the auther only
   const isUser = (singleBlog?.user?._id === userId);
   // console.log(singleBlog?.user?._id)
@@ -56,13 +56,13 @@ const Blog = () => {
         },
       });
       if (data?.success) {
-        console.log(data?.blog);
+        // console.log(data?.blog);
         setSingleBlog(data?.blog);
-        if(data?.blog?.savedBy?.includes(userId)){
+        if (data?.blog?.savedBy?.includes(userId)) {
           setIsSaved(true);
-          console.log(true);
-        }else{
-          console.log(false)
+          // console.log(true);
+        } else {
+          // console.log(false)
         };
       }
     } catch (error) {
@@ -70,7 +70,7 @@ const Blog = () => {
     }
   };
 
- 
+
 
   // edit handler 
   const navigate = useNavigate();
@@ -92,12 +92,12 @@ const Blog = () => {
     }
   };
 
-  
+
   // save blog handler
 
   const handleSaveBlog = async () => {
     try {
-      await axios.post(`${apiUrl}/save-blog/${id}`,null,{
+      await axios.post(`${apiUrl}/save-blog/${id}`, null, {
         params: {
           userId: userId,
         },
@@ -109,6 +109,22 @@ const Blog = () => {
       toast.error(error.response.data.message);
     }
   };
+
+  // handleUnsaveBlog handler
+  const handleUnsaveBlog = async () => {
+    try {
+      await axios.delete(`${apiUrl}/unsave-blog/${id}`, {
+        params: {
+          userId: userId,
+        },
+      });
+      setIsSaved(false);
+      toast.success("Blog Unsaved successfully!");
+    } catch (error) {
+      console.error("Error unsaving blog:", error.response.data.message);
+      toast.error(error.response.data.message);
+    }
+  }
 
   useEffect(() => {
 
@@ -149,19 +165,31 @@ const Blog = () => {
             {singleBlog?.user?.username?.slice(0, 1)?.toUpperCase()}
           </Avatar>
         }
-        title={isUser ? "You"  : singleBlog?.user?.username}
+        title={isUser ? "You" : singleBlog?.user?.username}
 
         subheader={singleBlog?.createdAt ? formatDistanceToNow(new Date(singleBlog?.createdAt), { addSuffix: true }) : "Unkonwn Date"}
-        
+
         action={
           <div style={{ display: 'flex', alignItems: 'center', marginTop: "15px" }}>
             <RemoveRedEyeIcon style={{ color: 'primary', verticalAlign: 'middle' }} />
             <h4 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}>{singleBlog?.views} views</h4>
 
+
+            {!isSaved && <IconButton onClick={handleSaveBlog}>
+              <BookmarkAddRoundedIcon style={{ color: 'primary', verticalAlign: 'middle', fontSize: "30px" }} />
+              <h6 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}> Save</h6>
+            </IconButton>}
+            {isSaved && <IconButton onClick={handleUnsaveBlog} >
+              <BookmarkAddedRoundedIcon style={{ color: 'primary', verticalAlign: 'middle', fontSize: "30px" }} />
+              <h6 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}> Saved</h6>
+            </IconButton>
+
+            }
+
             {isUser && (
               <Box display={"flex"}>
                 <IconButton onClick={handleEdit} >
-                  <ModeEditIcon color="info" style={{marginLeft:"6px"}}/>
+                  <ModeEditIcon color="info"  />
                 </IconButton>
                 <IconButton onClick={handleDelete}>
                   <DeleteIcon color="error" />
@@ -169,16 +197,6 @@ const Blog = () => {
               </Box>
             )}
 
-           {!isSaved && <IconButton onClick={handleSaveBlog}>
-            <BookmarkAddRoundedIcon  style={{ color: 'primary', verticalAlign: 'middle', fontSize:"40px" }} />
-            <h6 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}> Save</h6>
-            </IconButton>}
-            {isSaved && <IconButton >
-              <BookmarkAddedRoundedIcon  style={{ color: 'primary', verticalAlign: 'middle', fontSize:"30px" }} />
-              <h6 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}> Saved</h6>
-            </IconButton>
-
-            }
           </div>
         }
       />
