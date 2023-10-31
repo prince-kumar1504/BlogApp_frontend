@@ -34,6 +34,9 @@ const Blog = () => {
   // console.log(id);
 
   const [singleBlog, setSingleBlog] = useState({});
+  
+
+    const [isSaved, setIsSaved] = useState(false);
 
   // const userId = localStorage.getItem('userId');
   const userId =  Cookies.get('UserId')  
@@ -53,8 +56,14 @@ const Blog = () => {
         },
       });
       if (data?.success) {
-        // console.log(data?.blog);
+        console.log(data?.blog);
         setSingleBlog(data?.blog);
+        if(data?.blog?.savedBy?.includes(userId)){
+          setIsSaved(true);
+          console.log(true);
+        }else{
+          console.log(false)
+        };
       }
     } catch (error) {
       console.log(error);
@@ -83,9 +92,8 @@ const Blog = () => {
     }
   };
 
+  
   // save blog handler
-
-  const [isSaved, setIsSaved] = useState(false);
 
   const handleSaveBlog = async () => {
     try {
@@ -98,7 +106,7 @@ const Blog = () => {
       toast.success("Blog saved successfully!");
     } catch (error) {
       console.error("Error saving blog:", error.response.data.message);
-      // toast.success(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -160,9 +168,17 @@ const Blog = () => {
                 </IconButton>
               </Box>
             )}
-            <IconButton onClick={handleSaveBlog}>
+
+           {!isSaved && <IconButton onClick={handleSaveBlog}>
             <BookmarkAddRoundedIcon  style={{ color: 'primary', verticalAlign: 'middle', fontSize:"40px" }} />
+            <h6 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}> Save</h6>
+            </IconButton>}
+            {isSaved && <IconButton >
+              <BookmarkAddedRoundedIcon  style={{ color: 'primary', verticalAlign: 'middle', fontSize:"30px" }} />
+              <h6 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}> Saved</h6>
             </IconButton>
+
+            }
           </div>
         }
       />

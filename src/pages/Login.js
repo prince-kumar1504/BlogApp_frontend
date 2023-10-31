@@ -43,6 +43,11 @@ const Login = () => {
         // localStorage.setItem("userId", data?.user._id);
 
         Cookies.set('UserId', data?.user._id, {expires: 2});
+
+        // console.log(data?.user?.savedBlogs);
+        // localStorage.setItem("savedBlogs",data?.user?.savedBlogs);
+
+
         dispatch(authActions.login());
         setError(null)
         toast.success("User login Successfully");
