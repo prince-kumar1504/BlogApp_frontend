@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import UserBlogs from "./pages/UserBlogs";
 import CreateBlog from "./pages/CreateBlog";
 import BlogDetails from "./pages/BlogDetails";
+import SavedBlog from "./pages/SavedBlog";
 import { Toaster } from "react-hot-toast";
 import Blog from "./pages/Blog";
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/create-blog" element={<CreateBlog />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/saved-blogs/:id" element={<SavedBlog/>} />
       </Routes>
       </BrowserRouter>
     </>

@@ -42,9 +42,10 @@ const Login = () => {
 
         // localStorage.setItem("userId", data?.user._id);
 
-        Cookies.set('UserId', data?.user._id, {expires: 2});
+        Cookies.set('UserId', data?.user?._id, {expires: 2});
+        Cookies.set('UserName', data?.user?.username, {expires: 2});
 
-        // console.log(data?.user?.savedBlogs);
+        // console.log(data?.user);
         // localStorage.setItem("savedBlogs",data?.user?.savedBlogs);
 
 

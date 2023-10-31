@@ -28,7 +28,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import DrawOutlinedIcon from '@mui/icons-material/DrawOutlined';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import LaptopChromebookRoundedIcon from '@mui/icons-material/LaptopChromebookRounded';
-
+import BookmarkAddedRoundedIcon from '@mui/icons-material/BookmarkAddedRounded';
 
 
 
@@ -55,6 +55,7 @@ const Header = () => {
   let isLogin = useSelector((state) => state.isLogin);
   // isLogin = isLogin || localStorage.getItem("userId");
   isLogin = isLogin || Cookies.get('UserId');
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //state
@@ -68,7 +69,8 @@ const Header = () => {
       navigate("/login");
       // localStorage.clear();
       Cookies.remove('UserId');
-      setOpenPopup(null); 
+      Cookies.remove('UserName');
+      setOpenPopup(null);
     } catch (error) {
       console.log(error);
     }
@@ -90,9 +92,16 @@ const Header = () => {
   const handleMyBlogsClick = () => {
     setOpenPopup(null);
     navigate("/my-blogs");
-    setValue(3);
+   
   };
 
+  //saved hander
+  const handleSavedClick = () => {
+    setOpenPopup(null);
+    const id = Cookies.get('UserId');
+    navigate(`/saved-blogs/${id}`);
+   
+  }
 
 
   return (
@@ -100,17 +109,17 @@ const Header = () => {
       <AppBar position="sticky" sx={{ backgroundColor: '#424242' }}>
         <Toolbar>
           <Typography variant="h4" marginRight={"auto"} style={{ display: 'flex', alignItems: 'center' }}>
-            <LaptopChromebookRoundedIcon fontSize="20" style={{marginRight:"5px"}}/>InsightfulWrites
+            <LaptopChromebookRoundedIcon fontSize="20" style={{ marginRight: "5px" }} />InsightfulWrites
           </Typography>
           {isLogin && (
             <Box display={"flex"} marginLeft="auto" >
               <Tabs
                 textColor="white"
                 value={value}
-                onChange={(e, val) => setValue(val) }
+                onChange={(e, val) => setValue(val)}
                 indicatorColor="transparent"
               >
-                <Tab label={<HomeTabLabel />}  LinkComponent={Link} to="/" value={0} />
+                <Tab label={<HomeTabLabel />} LinkComponent={Link} to="/" value={0} />
                 <Tab label={<WriteTabLabel />} LinkComponent={Link} to="/create-blog" value={1} />
               </Tabs>
             </Box>
@@ -143,7 +152,7 @@ const Header = () => {
                   onClick={handleClick}
                   aria-label="user-icon"
                 >
-                  <AccountCircleIcon fontSize="large"/>
+                  <AccountCircleIcon fontSize="large" />
                 </IconButton>
                 <Popover
                   open={Boolean(openPopup)}
@@ -159,13 +168,25 @@ const Header = () => {
                   }}
                 >
                   <List>
-                    <ListItem button onClick={handleMyBlogsClick}>
+                    {/* <ListItem >
                       <ListItemIcon>
                         <LibraryBooksIcon />
                       </ListItemIcon>
+                      <ListItemText>Username<br/><h6>{Cookies.get("UserName")}</h6></ListItemText>
+                    </ListItem> */}
+                    <ListItem key="myBlogs" button onClick={handleMyBlogsClick}>
+                      <ListItemIcon>
+                        <LibraryBooksIcon  />
+                      </ListItemIcon>
                       <ListItemText primary="My Blogs" />
                     </ListItem>
-                    <ListItem button onClick={handleLogout}>
+                    <ListItem key="savedBlogs" button onClick={handleSavedClick}>
+                      <ListItemIcon>
+                        <BookmarkAddedRoundedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Saved" />
+                    </ListItem>
+                    <ListItem key="logout" button onClick={handleLogout}>
                       <ListItemIcon>
                         <ExitToAppIcon />
                       </ListItemIcon>

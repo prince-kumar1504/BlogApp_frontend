@@ -12,12 +12,15 @@ import { Box, Button, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useState } from "react";
 
 import { useSelector, } from "react-redux";
 // import { authActions } from "../redux/store";
 
 
 import SendIcon from '@mui/icons-material/Send';
+import BookmarkAddRoundedIcon from '@mui/icons-material/BookmarkAddRounded';
+import BookmarkAddedRoundedIcon from '@mui/icons-material/BookmarkAddedRounded';
 
 
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
@@ -34,6 +37,8 @@ const BlogCard = ({
   time,
   id,
   isUser,
+  savedBy,
+  onSavePage
 }) => {
   const apiUrl = API.BLOG_URL
 
@@ -42,6 +47,13 @@ const BlogCard = ({
   // isLogin = isLogin || localStorage.getItem("userId") ;
   isLogin = isLogin || Cookies.get("UserId")
 
+  // console.log(savedBy);
+  // if(savedBy.includes(userId))
+
+
+
+  const userId = Cookies.get('UserId')
+  const [isSaved, setIsSaved] = useState(savedBy?.includes(userId));
 
   // edit handler 
   const navigate = useNavigate();
@@ -50,11 +62,10 @@ const BlogCard = ({
   };
 
   // readmore handler
-  const handleReadMore = () => 
-    { isLogin ? (navigate(`/get-blog/${id}`)):(toast.error("Login or Register to Read More")) }
-    
-  
-  const formattedDescription = description.replace(/\n/g, '<br/>');
+  const handleReadMore = () => { isLogin ? (navigate(`/get-blog/${id}`)) : (toast.error("Login or Register to Read More")) }
+
+
+  const formattedDescription = description?.replace(/\n/g, '<br/>');
   // const updatedDescription = formattedDescription.slice(0, 1).toUpperCase() + formattedDescription.slice(1) + "..."
 
   const handleDelete = async () => {
@@ -69,6 +80,49 @@ const BlogCard = ({
       console.log(error);
     }
   };
+
+  // save blog handler
+
+  const handleSaveBlog = async () => {
+    try {
+      await axios.post(`${apiUrl}/save-blog/${id}`, null, {
+        params: {
+          userId: userId,
+        },
+      });
+      setIsSaved(true);
+      toast.success("Blog saved successfully!");
+    } catch (error) {
+      console.error("Error saving blog:", error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  // handleUnsaveBlog handler
+  const handleUnsaveBlog = async () => {
+    try {
+      await axios.delete(`${apiUrl}/unsave-blog/${id}`, {
+        params: {
+          userId: userId,
+        },
+      });
+      setIsSaved(false);
+      toast.success("Blog Unsaved successfully!");
+      if (onSavePage) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 400);
+
+      }
+
+    } catch (error) {
+      console.error("Error unsaving blog:", error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
+    }
+  }
+
+
+
   return (
     <Card
       sx={{
@@ -99,19 +153,37 @@ const BlogCard = ({
             {username?.slice(0, 1)?.toUpperCase()}
           </Avatar>
         }
-        title={<Typography variant="caption" color="black">@{isUser ? "You" : username}<br/></Typography>}
-        
+        title={<Typography variant="caption" color="black">{isUser ? "You" : "@" + username}<br /></Typography>}
+
         subheader={<Typography variant="caption" color="black">{formatDistanceToNow(new Date(time), { addSuffix: true })}</Typography>}
-        action={isUser && (
-          <Box display={"flex"}>
-            <IconButton onClick={handleEdit} >
-              <ModeEditIcon color="info" />
-            </IconButton>
-            <IconButton onClick={handleDelete}>
-              <DeleteIcon color="error" />
-            </IconButton>
-          </Box>
-        )}
+        action={
+          <div>
+            {isUser && (
+              <Box display={"flex"}>
+                <IconButton onClick={handleEdit} >
+                  <ModeEditIcon color="info" />
+                </IconButton>
+                <IconButton onClick={handleDelete}>
+                  <DeleteIcon color="error" />
+                </IconButton>
+              </Box>
+
+            )}
+            {!isUser && (
+              <>
+                {!isSaved && (
+                  <IconButton onClick={handleSaveBlog}>
+                    <BookmarkAddRoundedIcon style={{ color: 'primary', verticalAlign: 'middle', fontSize: "30px" }} />
+                  </IconButton>
+                )}
+                {isSaved && (
+                  <IconButton onClick={handleUnsaveBlog}>
+                    <BookmarkAddedRoundedIcon style={{ color: 'primary', verticalAlign: 'middle', fontSize: "30px" }} />
+                  </IconButton>
+                )}
+              </>
+            )}
+          </div>}
 
       />
 
@@ -120,13 +192,13 @@ const BlogCard = ({
         <Typography variant="h4" color="text.secondary"
           style={{
             overflow: "hidden",
-            
+
             maxHeight: "1.5em",
             lineHeight: "1.5",
           }}>
           {title?.charAt(0)?.toUpperCase() + title?.slice(1)}
         </Typography>
-        
+
         <Typography variant="body1" color="text.secondary" dangerouslySetInnerHTML={{ __html: formattedDescription }}
           style={{
             overflow: "hidden",

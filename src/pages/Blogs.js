@@ -29,7 +29,7 @@ const Blogs = () => {
   };
   useEffect(() => {
     getAllBlogs();
-  }, [blogs?.user?._id]);
+  }, []);
 
   return (
     <div>
@@ -45,6 +45,7 @@ const Blogs = () => {
                 image={blog?.image}
                 username={blog?.user?.username}
                 time={blog?.createdAt}
+                savedBy={blog?.savedBy}
               />
             </Grid>
           ))}

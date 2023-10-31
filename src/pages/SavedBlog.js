@@ -11,7 +11,7 @@ const UserBlogs = () => {
 
   const apiUrl = API.BLOG_URL
 
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState({});
 
 
   const containerStyle = {
@@ -29,9 +29,12 @@ const UserBlogs = () => {
     try {
       // const id = localStorage.getItem("userId");
       const id = Cookies.get('UserId')
-      const { data } = await axios.get(`${apiUrl}/user-blog/${id}`);
+      const { data } = await axios.get(`${apiUrl}/saved-blogs/${id}`);
       if (data?.success) {
-        setBlogs(data?.userBlog?.blogs);
+        setBlogs(data?.savedBlogs);
+        // SetUser(blogs?.user);
+        // console.log(data?.savedBlogs)
+        // console.log(data?.user?.savedBlogs[0]?.user)
       }
     } catch (error) {
       console.log(error);
@@ -48,17 +51,19 @@ const UserBlogs = () => {
         blogs.map((blog) => (
           <BlogCard
             id={blog?._id}
-            isUser={true}
+            // isUser={Cookies.get('UserId') === blog?.user?._id}
             title={blog?.title}
             description={blog?.description}
             image={blog?.image}
             username={blog?.user?.username}
             time={blog?.createdAt}
+            savedBy={blog?.savedBy}
+            onSavePage={true} // i am reloading the page after unsaving the blog
           />
         ))
       ) : (
         <div style={containerStyle}>
-          <h1 style={headingStyle}>You Haven't Created A Blog</h1>
+          <h1 style={headingStyle}>You Haven't Saved A Blog</h1>
         </div>
       )}
     </div>
