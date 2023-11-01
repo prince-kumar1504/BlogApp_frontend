@@ -154,7 +154,7 @@ const Blog = () => {
       }}
     >
 
-      <Typography variant="h2" style={{ fontWeight: "600", marginTop: "50px" }} >
+      <Typography variant="h4" style={{ fontWeight: "600", marginTop: "50px", fontSize: window.innerWidth < 650 ? '20px' : 'h4', }} >
         Title : {singleBlog?.title?.charAt(0)?.toUpperCase() + singleBlog?.title?.slice(1)}
       </Typography>
 
@@ -165,14 +165,18 @@ const Blog = () => {
             {singleBlog?.user?.username?.slice(0, 1)?.toUpperCase()}
           </Avatar>
         }
-        title={isUser ? "You" : singleBlog?.user?.username}
+        title={isUser ? "You" : "@" + singleBlog?.user?.username}
 
-        subheader={singleBlog?.createdAt ? formatDistanceToNow(new Date(singleBlog?.createdAt), { addSuffix: true }) : "Unkonwn Date"}
+        subheader={
+          <Typography variant="h4"style={{ fontSize: window.innerWidth < 650 ? '10px' : 'inherit' }}>
+            {singleBlog?.createdAt ? formatDistanceToNow(new Date(singleBlog?.createdAt), { addSuffix: true }) : "Unkonwn Date"}
+          </Typography>
+        }
 
         action={
           <div style={{ display: 'flex', alignItems: 'center', marginTop: "15px" }}>
             <RemoveRedEyeIcon style={{ color: 'primary', verticalAlign: 'middle' }} />
-            <h4 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block' }}>{singleBlog?.views} views</h4>
+            <h4 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block',fontSize: window.innerWidth < 650 ? '10px' : 'inherit' }}>{singleBlog?.views} views</h4>
 
 
             {!isUser && (
@@ -211,7 +215,7 @@ const Blog = () => {
       <CardContent>
 
         <br></br>
-        <Typography variant="h6" dangerouslySetInnerHTML={{ __html: updatedDescription }} />
+        <Typography style={{ fontSize: window.innerWidth < 650 ? '15px' : 'h3' }} dangerouslySetInnerHTML={{ __html: updatedDescription }} />
       </CardContent>
     </Card>
   )

@@ -84,17 +84,21 @@ const BlogCard = ({
   // save blog handler
 
   const handleSaveBlog = async () => {
-    try {
-      await axios.post(`${apiUrl}/save-blog/${id}`, null, {
-        params: {
-          userId: userId,
-        },
-      });
-      setIsSaved(true);
-      toast.success("Blog saved successfully!");
-    } catch (error) {
-      console.error("Error saving blog:", error?.response?.data?.message);
-      toast.error(error?.response?.data?.message);
+    if (userId) {
+      try {
+        await axios.post(`${apiUrl}/save-blog/${id}`, null, {
+          params: {
+            userId: userId,
+          },
+        });
+        setIsSaved(true);
+        toast.success("Blog saved successfully!");
+      } catch (error) {
+        console.error("Error saving blog:", error?.response?.data?.message);
+        toast.error(error?.response?.data?.message);
+      }
+    } else {
+      toast.error("Please log in to save the blog.");
     }
   };
 
@@ -126,16 +130,16 @@ const BlogCard = ({
   return (
     <Card
       sx={{
-        width: "90%",
-        margin: "auto",
-        mt: 5,
+        width: "100%",
+        margin: "0",
+        mt: 2.5,
         padding: 0,
         borderRadius: 2,
         boxShadow: "2px 2px 5px #ccc",
         height: "470px",
         marginBottom: "20px",
         position: "relative",
-
+        
       }}
     >
       <CardMedia component="img" height={265} image={image} alt="image" ></CardMedia>

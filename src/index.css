@@ -83,5 +83,14 @@ div.error {
   color: #28a745;
 }
 
+@media (max-width: 600px) {
+  .hide-on-small-screen {
+    display: none;
+  }
+  .become-small {
+    font-size: "10px";
+  }
+}
+
 
 

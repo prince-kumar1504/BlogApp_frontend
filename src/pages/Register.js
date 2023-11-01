@@ -62,6 +62,7 @@ const Register = () => {
           boxShadow="10px 10px 20px #ccc"
           padding={3}
           borderRadius={5}
+          sx={{ width: window.innerWidth < 650 ? '90%' : 'inherit'}}
         >
           <Typography
             variant="h4"

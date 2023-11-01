@@ -14,8 +14,8 @@ const API ={
 
 // for my network 
 // const API ={
-//    BLOG_URL : "http://192.168.0.187:8080/api/v1/blog",
-//    USER_URL :"http://192.168.0.187:8080/api/v1/user"
+//    BLOG_URL : "http://192.168.0.196:8080/api/v1/blog",
+//    USER_URL :"http://192.168.0.196:8080/api/v1/user"
 // }
 
 export default API 

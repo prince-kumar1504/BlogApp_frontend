@@ -68,16 +68,16 @@ const CreateBlog = () => {
           }}
         >
           <Typography
-            variant="h2"
             textAlign={"center"}
             fontWeight="bold"
             padding={3}
             color="gray"
+            style={{ fontSize: window.innerWidth < 650 ? '30px' : '50px' }}
           >
-            Create a Post
+            Create a Blog
           </Typography>
           <InputLabel
-            sx={{ mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" }}
+            style={{ fontSize: window.innerWidth < 650 ? '20px' : '24px',  mb: 1, mt: 1 , fontWeight:'bold'}}
           >
             Title
           </InputLabel>
@@ -90,7 +90,7 @@ const CreateBlog = () => {
             required
           />
           <InputLabel
-            sx={{ mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" }}
+            style={{ fontSize: window.innerWidth < 650 ? '20px' : '24px',  mb: 1, mt: 1 , fontWeight:'bold'}}
           >
             Description
           </InputLabel>
@@ -104,30 +104,10 @@ const CreateBlog = () => {
             variant="outlined"
             required
           />
-          {/* Image preview */}
-          {inputs.image && (
-            <img
-              src={inputs.image}
-              alt=""
-              style={{ width: "250px", margin: "0 auto 0 auto", border: "2px solid black", borderRadius: "5px" }}
-            />
-          )}{!inputs.image &&
-            (<div
-              style={{
-                width: "250px",
-                height: "190px",
-                margin: "0 auto 0 auto",
-                border: "2px dashed grey",
-                borderRadius: "5px",
-                textAlign: "center",
-
-              }} >
-              <h4 style={{ marginTop: "90px", color: "Grey", fontFamily: "times new roman" }}>Image Preview</h4>
-            </div>)
-          }
+          
           {/* Image URL input */}
           <InputLabel
-            sx={{ mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" }}
+            style={{ fontSize: window.innerWidth < 650 ? '20px' : '24px',  mb: 1, mt: 1 , fontWeight:'bold'}}
           >
             Image URL
           </InputLabel>
@@ -137,9 +117,32 @@ const CreateBlog = () => {
             onChange={handleChange}
             margin="normal"
             variant="outlined"
+            sx={{mb:4}}
             required
           />
-          <Button type="submit" color="primary" variant="contained">
+          {/* Image preview */}
+          {inputs.image && (
+            <img
+              src={inputs.image}
+              alt=""
+              style={{ width: "100%", margin: "0 auto 0 auto", border: "2px solid black", borderRadius: "5px" }}
+            />
+          )}{!inputs.image &&
+            (<div
+              style={{
+                width: "100%",
+                height: "190px",
+                margin: "0 auto 0 auto",
+                border: "2px dashed grey",
+                borderRadius: "5px",
+                textAlign: "center",
+                
+
+              }} >
+              <h4 style={{ marginTop: "90px", color: "Grey", fontFamily: "times new roman" }}>Image Preview</h4>
+            </div>)
+          }
+          <Button type="submit" color="primary" variant="contained" sx={{mt: 4}}>
             SUBMIT
           </Button>
         </Box>

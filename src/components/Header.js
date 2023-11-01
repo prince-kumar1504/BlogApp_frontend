@@ -22,20 +22,22 @@ import Cookies from "js-cookie";
 
 // Icons
 
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import DrawOutlinedIcon from '@mui/icons-material/DrawOutlined';
+
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import LaptopChromebookRoundedIcon from '@mui/icons-material/LaptopChromebookRounded';
 import BookmarkAddedRoundedIcon from '@mui/icons-material/BookmarkAddedRounded';
+import { AiFillHome } from "react-icons/ai"
+import { PiNotePencil } from "react-icons/pi"
 
 
 
 const HomeTabLabel = () => (
   <Box display="flex" alignItems="center">
-    <HomeOutlinedIcon />
-    <Typography variant="body1" marginLeft={1}>
+    <AiFillHome size={30} />
+    <Typography className="hide-on-small-screen" variant="body1" marginLeft={1}>
       Home
     </Typography>
   </Box>
@@ -43,8 +45,8 @@ const HomeTabLabel = () => (
 
 const WriteTabLabel = () => (
   <Box display="flex" alignItems="center">
-    <DrawOutlinedIcon />
-    <Typography variant="body1" marginLeft={1}>
+    <PiNotePencil size={30} />
+    <Typography className="hide-on-small-screen" variant="body1" marginLeft={1}>
       write
     </Typography>
   </Box>
@@ -92,7 +94,7 @@ const Header = () => {
   const handleMyBlogsClick = () => {
     setOpenPopup(null);
     navigate("/my-blogs");
-   
+
   };
 
   //saved hander
@@ -100,7 +102,7 @@ const Header = () => {
     setOpenPopup(null);
     const id = Cookies.get('UserId');
     navigate(`/saved-blogs/${id}`);
-   
+
   }
 
 
@@ -108,45 +110,28 @@ const Header = () => {
     <>
       <AppBar position="sticky" sx={{ backgroundColor: '#424242' }}>
         <Toolbar>
-          <Typography variant="h4" marginRight={"auto"} style={{ display: 'flex', alignItems: 'center' }}>
-            <LaptopChromebookRoundedIcon fontSize="20" style={{ marginRight: "5px" }} />InsightfulWrites
-          </Typography>
-          {isLogin && (
-            <Box display={"flex"} marginLeft="auto" >
-              <Tabs
-                textColor="white"
-                value={value}
-                onChange={(e, val) => setValue(val)}
-                indicatorColor="transparent"
-              >
-                <Tab label={<HomeTabLabel />} LinkComponent={Link} to="/" value={0} />
-                <Tab label={<WriteTabLabel />} LinkComponent={Link} to="/create-blog" value={1} />
-              </Tabs>
-            </Box>
-          )}
+          <Link to="/" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}>
+            <Typography variant="h4" marginRight={"auto"} style={{ display: 'flex', alignItems: 'center' }}>
+              <LaptopChromebookRoundedIcon fontSize="20" style={{ marginRight: "5px" }} />{" "}
+              <Typography style={{ fontSize: window.innerWidth < 650 ? '15px' : '30px',  mb: 1, mt: 1 }}>InsightfulWrites</Typography>
+            </Typography>
+          </Link>
 
 
-          <Box display={"flex"}>
-            {!isLogin && (
-              < >
-                <Button
-                  sx={{ marginLeft: 1, color: "white" }}
-                  LinkComponent={Link}
-                  to="/login"
+          <Box style={{ display: 'flex', marginLeft: 'auto' }} >
+            {isLogin ? (
+              <Box style={{ display: 'flex', alignItems: 'center' }}>
+                <Tabs
+                  textColor="white"
+                  value={value}
+                  marginLeft='auto'
+                  onChange={(e, val) => setValue(val)}
+                  indicatorColor="transparent"
+
                 >
-                  Login
-                </Button>
-                <Button
-                  sx={{ margin: 1, color: "white" }}
-                  LinkComponent={Link}
-                  to="/register"
-                >
-                  Register
-                </Button>
-              </>
-            )}
-            {isLogin && (
-              <Box display="flex" marginLeft="auto">
+                  <Tab sx={{ minWidth: 'unset', padding: '8px' }} label={<HomeTabLabel />} LinkComponent={Link} to="/" value={0} />
+                  <Tab sx={{ minWidth: 'unset', padding: '8px' }} label={<WriteTabLabel />} LinkComponent={Link} to="/create-blog" value={1} />
+                </Tabs>
                 <IconButton
                   color="inherit"
                   onClick={handleClick}
@@ -168,15 +153,9 @@ const Header = () => {
                   }}
                 >
                   <List>
-                    {/* <ListItem >
-                      <ListItemIcon>
-                        <LibraryBooksIcon />
-                      </ListItemIcon>
-                      <ListItemText>Username<br/><h6>{Cookies.get("UserName")}</h6></ListItemText>
-                    </ListItem> */}
                     <ListItem key="myBlogs" button onClick={handleMyBlogsClick}>
                       <ListItemIcon>
-                        <LibraryBooksIcon  />
+                        <LibraryBooksIcon />
                       </ListItemIcon>
                       <ListItemText primary="My Blogs" />
                     </ListItem>
@@ -195,7 +174,26 @@ const Header = () => {
                   </List>
                 </Popover>
               </Box>
-            )}
+            ) : (
+              <>
+                <Button
+                  sx={{ margin: 1, color: "white",minWidth: 'unset', padding: '2px'  }}
+                  LinkComponent={Link}
+                  to="/login"
+                >
+                  Login
+                </Button>
+                <Button
+                  sx={{ margin: 1, color: "white",minWidth: 'unset', padding: '2px'  }}
+                  LinkComponent={Link}
+                  to="/register"
+                >
+                  Register
+                </Button>
+              </>
+            )
+            }
+
           </Box>
         </Toolbar>
       </AppBar>

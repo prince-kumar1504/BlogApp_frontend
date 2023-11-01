@@ -83,7 +83,7 @@ const BlogDetails = () => {
             padding={3}
             color="gray"
           >
-            Update A Post
+            Update A Blog
           </Typography>
           <InputLabel
             sx={{ mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" }}

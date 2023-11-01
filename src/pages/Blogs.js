@@ -33,10 +33,10 @@ const Blogs = () => {
 
   return (
     <div>
-      <Grid container spacing={2} width={"70%"} marginLeft={"auto" } marginRight={"auto"}>
+      <Grid container spacing={2}  marginLeft={"auto" } marginRight={"auto"}  sx={{ maxWidth: { xs: '90%', sm: '90%', md: '70%', lg: '80%' }}}>
         {blogs &&
           blogs.map((blog) => (
-            <Grid item xs={12} sm={12} md={6} lg={6} key={blog?._id}>
+            <Grid item xs={12} sm={12} md={6} lg={6} key={blog?._id} >
               <BlogCard
                 id={blog?._id}
                 isUser={Cookies.get('UserId') === blog?.user?._id}
