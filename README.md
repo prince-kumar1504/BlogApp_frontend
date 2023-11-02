@@ -19,6 +19,10 @@ Additional features like total view Count, user can save other post if they are 
 Responsive UI   
 
 
+### User icon popover
+![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/0ca6daab-e1e7-4c36-893b-104018516922)
+
+
 
 
 
