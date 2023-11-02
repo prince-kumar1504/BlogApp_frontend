@@ -22,6 +22,12 @@ Responsive UI
 ### User icon popover
 ![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/0ca6daab-e1e7-4c36-893b-104018516922)
 
+### Blog Card
+![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/57bc52b5-25d1-4b5a-a431-882608d93b41)
+
+If blog created by user then user can directly edit or delete their post from using the quick settings to edit or delete.
+
+
 
 
 
