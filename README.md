@@ -1,20 +1,20 @@
 # OverView
 
-#Home Page
+### Home Page
 ![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/eb1ce3aa-86ac-43e3-b5d9-6122b193a235) 
 
 
 ![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/c2b38b14-5ad4-4c62-8f3b-de854204f56d)
 
 
-#Blog Page
+### Blog Page
 ![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/c210487e-2a6e-4806-af4b-e172b7e033f9)
 
 ![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/bf5165e2-b884-4456-9da6-e21e3911eb82)
 
-Project contains pages in which user can view there blogs, can view the Blogs saved by them 
+### Project contains pages in which user can view there blogs, can view the Blogs saved by them 
 
--CRUD operations for the Blog post 
+-CRUD operations implemented for the Blog post 
 Additional features like total view Count, user can save other post if they are their fav.
 Responsive UI   
 
