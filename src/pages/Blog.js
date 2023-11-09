@@ -15,9 +15,10 @@ import { red } from "@mui/material/colors";
 
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, CircularProgress } from "@mui/material";
 import toast from "react-hot-toast";
 import Cookies from 'js-cookie';
+
 
 // icons
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -34,7 +35,7 @@ const Blog = () => {
   // console.log(id);
 
   const [singleBlog, setSingleBlog] = useState({});
-
+  const [loading, setLoading] = useState(true);
 
   const [isSaved, setIsSaved] = useState(false);
 
@@ -67,6 +68,10 @@ const Blog = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);// Set loading to false after data is fetched
+      }, 300);
     }
   };
 
@@ -138,6 +143,12 @@ const Blog = () => {
 
   return (
     // <div>{id}</div>
+    <div>
+    {loading ? ( // Show loader while loading is true
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
+          <CircularProgress style={{ color: "#424242" }} thickness={5} size={60} />
+        </div>
+      ) : (
     <Card
       variant="outlined" mt={10}
       sx={{
@@ -168,7 +179,7 @@ const Blog = () => {
         title={isUser ? "You" : "@" + singleBlog?.user?.username}
 
         subheader={
-          <Typography variant="h4"style={{ fontSize: window.innerWidth < 650 ? '10px' : 'inherit' }}>
+          <Typography variant="h4" style={{ fontSize: window.innerWidth < 650 ? '10px' : 'inherit' }}>
             {singleBlog?.createdAt ? formatDistanceToNow(new Date(singleBlog?.createdAt), { addSuffix: true }) : "Unkonwn Date"}
           </Typography>
         }
@@ -176,7 +187,7 @@ const Blog = () => {
         action={
           <div style={{ display: 'flex', alignItems: 'center', marginTop: "15px" }}>
             <RemoveRedEyeIcon style={{ color: 'primary', verticalAlign: 'middle' }} />
-            <h4 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block',fontSize: window.innerWidth < 650 ? '10px' : 'inherit' }}>{singleBlog?.views} views</h4>
+            <h4 style={{ marginLeft: '5px', verticalAlign: 'middle', display: 'inline-block', fontSize: window.innerWidth < 650 ? '10px' : 'inherit' }}>{singleBlog?.views} views</h4>
 
 
             {!isUser && (
@@ -218,6 +229,8 @@ const Blog = () => {
         <Typography style={{ fontSize: window.innerWidth < 650 ? '15px' : 'h3' }} dangerouslySetInnerHTML={{ __html: updatedDescription }} />
       </CardContent>
     </Card>
+    )}
+    </div>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BlogCard from "../components/BlogCard";
+import { CircularProgress } from "@mui/material";
 
 
 import API from "../axios/api"
@@ -12,6 +13,7 @@ const UserBlogs = () => {
   const apiUrl = API.BLOG_URL
 
   const [blogs, setBlogs] = useState({});
+  const [loading, setLoading] = useState(true);
 
 
   const containerStyle = {
@@ -38,6 +40,10 @@ const UserBlogs = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);// Set loading to false after data is fetched
+      }, 300);
     }
   };
 
@@ -46,27 +52,38 @@ const UserBlogs = () => {
   }, []);
   // console.log(blogs);
   return (
-    <div style={{ marginRight:'auto',marginLeft:'auto', width: window.innerWidth < 650 ? '90%' : '50%', margin:"5px auto 5px auto"}}>
-      {blogs && blogs?.length > 0 ? (
-        blogs.map((blog) => (
-          <BlogCard
-            id={blog?._id}
-            // isUser={Cookies.get('UserId') === blog?.user?._id}
-            title={blog?.title}
-            description={blog?.description}
-            image={blog?.image}
-            username={blog?.user?.username}
-            time={blog?.createdAt}
-            savedBy={blog?.savedBy}
-            onSavePage={true} // i am reloading the page after unsaving the blog
-          />
-        ))
+    <div>
+      {loading ? ( // Show loader while loading is true
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
+          <CircularProgress style={{ color: "#424242" }} thickness={5} size={60} />
+        </div>
       ) : (
-        <div style={containerStyle}>
-          <h1 style={headingStyle}>You Haven't Saved A Blog</h1>
+
+        <div style={{ marginRight: 'auto', marginLeft: 'auto', width: window.innerWidth < 650 ? '90%' : '50%', margin: "5px auto 5px auto" }}>
+
+          {blogs && blogs?.length > 0 ? (
+            blogs.map((blog) => (
+              <BlogCard
+                id={blog?._id}
+                // isUser={Cookies.get('UserId') === blog?.user?._id}
+                title={blog?.title}
+                description={blog?.description}
+                image={blog?.image}
+                username={blog?.user?.username}
+                time={blog?.createdAt}
+                savedBy={blog?.savedBy}
+                onSavePage={true} // i am reloading the page after unsaving the blog
+              />
+            ))
+          ) : (
+            <div style={containerStyle}>
+              <h1 style={headingStyle}>You Haven't Saved A Blog</h1>
+            </div>
+          )}
         </div>
       )}
     </div>
+
   );
 };
 
