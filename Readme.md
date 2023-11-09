@@ -1,3 +1,37 @@
+# OverView
+
+### Home Page
+![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/eb1ce3aa-86ac-43e3-b5d9-6122b193a235) 
+
+
+![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/c2b38b14-5ad4-4c62-8f3b-de854204f56d)
+
+
+### Blog Page
+![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/c210487e-2a6e-4806-af4b-e172b7e033f9)
+
+![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/bf5165e2-b884-4456-9da6-e21e3911eb82)
+
+### Project contains pages in which user can view there blogs, can view the Blogs saved by them 
+
+-CRUD operations implemented for the Blog post 
+Additional features like total view Count, user can save other post if they are their fav.
+Responsive UI   
+
+
+### User icon popover
+![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/0ca6daab-e1e7-4c36-893b-104018516922)
+
+### Blog Card
+![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/57bc52b5-25d1-4b5a-a431-882608d93b41)
+
+If blog created by user then user can directly edit or delete their post from using the quick settings to edit or delete.
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
