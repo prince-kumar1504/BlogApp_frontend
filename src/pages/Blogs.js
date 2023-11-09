@@ -16,6 +16,7 @@ const Blogs = () => {
 
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+
   //get blogs
   const getAllBlogs = async () => {
     try {
@@ -33,6 +34,8 @@ const Blogs = () => {
     }
 
   };
+
+  
   useEffect(() => {
     getAllBlogs();
   }, []);

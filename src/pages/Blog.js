@@ -15,10 +15,10 @@ import { red } from "@mui/material/colors";
 
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, IconButton, CircularProgress } from "@mui/material";
+import { Box, IconButton, CircularProgress, Button } from "@mui/material";
 import toast from "react-hot-toast";
 import Cookies from 'js-cookie';
-
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 // icons
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -28,15 +28,16 @@ import BookmarkAddedRoundedIcon from '@mui/icons-material/BookmarkAddedRounded';
 
 const Blog = () => {
 
-
+  const navigate = useNavigate();
+ 
   const apiUrl = API.BLOG_URL;
 
   const id = useParams().id; // blog id
   // console.log(id);
-
+ 
   const [singleBlog, setSingleBlog] = useState({});
   const [loading, setLoading] = useState(true);
-
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 
   // const userId = localStorage.getItem('userId');
@@ -78,19 +79,27 @@ const Blog = () => {
 
 
   // edit handler 
-  const navigate = useNavigate();
+
   const handleEdit = () => {
     navigate(`/blog-details/${id}`);
   };
 
-  //delete handler
+  // delete blog 
+  const handleOpenDeleteDialog = () => {
+    setOpenDeleteDialog(true);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
+  };
+
   const handleDelete = async () => {
     try {
       const { data } = await axios.delete(`${apiUrl}/delete-blog/${id}`);
       if (data?.success) {
-        toast.success("Blog Deleted Successfully")
-        // alert("Blog Deleted");
-        window.location.reload();
+        toast.success("Blog Deleted Successfully");
+        setOpenDeleteDialog(false); // Close the dialog after successful deletion
+        navigate("/")
       }
     } catch (error) {
       console.log(error);
@@ -210,7 +219,7 @@ const Blog = () => {
                 <IconButton onClick={handleEdit} >
                   <ModeEditIcon color="info" />
                 </IconButton>
-                <IconButton onClick={handleDelete}>
+                <IconButton onClick={handleOpenDeleteDialog}>
                   <DeleteIcon color="error" />
                 </IconButton>
               </Box>
@@ -230,6 +239,30 @@ const Blog = () => {
       </CardContent>
     </Card>
     )}
+
+
+    {/* delete model confirmation */}
+    <Dialog
+        open={openDeleteDialog}
+        onClose={handleCloseDeleteDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Delete Blog?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this blog?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="primary" autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }

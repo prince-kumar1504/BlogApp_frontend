@@ -45,7 +45,7 @@ const CreateBlog = () => {
       });
       if (data?.success) {
         toast.success("Blog Created");
-        navigate("/my-blogs");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
