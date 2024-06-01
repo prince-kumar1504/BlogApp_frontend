@@ -1,5 +1,12 @@
 # OverView
 
+### Login Credentials
+
+To access the website, use the following login credentials:
+
+- **Username:** prince15@gmail.com
+- **Password:** Prince@123
+
 ### Home Page
 ![image](https://github.com/prince-kumar1504/BlogApp_frontend/assets/80267652/eb1ce3aa-86ac-43e3-b5d9-6122b193a235) 
 
